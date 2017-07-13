@@ -213,8 +213,7 @@ public class Util {
      */
     public static void setCameraDisplayOrientation(Activity activity,
                                                    int cameraId, Camera camera) {
-        Camera.CameraInfo info =
-                new Camera.CameraInfo();
+        Camera.CameraInfo info = new Camera.CameraInfo();
         Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
                 .getRotation();
