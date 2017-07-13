@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
         initClick();
         initData();
@@ -62,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         //设置分辨率
         doStartSize();
 
-
     }
 
     private void initClick() {
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             public void startRecord() {
                 if (!flagRecord) {
                     if (prepareRecord()) {
+                        Toast.makeText(MainActivity.this,"prepareRecord",Toast.LENGTH_SHORT).show();
                     } else {
                         endRecord();
                     }
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
      * 结束录制
      */
     private void endRecord() {
-        //反正多次进入，比如surface的destroy和界面onPause
+        // 防止多次进入，比如surface的destroy和界面onPause
         if (!flagRecord) {
             return;
         }
@@ -236,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             if (videoFile != null) {
                 //设置创建好的输入路径
                 mediaRecorder.setOutputFile(videoFile.getPath());
+                Log.e("chris","videoFile===" + videoFile.getPath());
                 mediaRecorder.prepare();
                 mediaRecorder.start();
                 //不能旋转
