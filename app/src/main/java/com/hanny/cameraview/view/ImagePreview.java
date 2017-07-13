@@ -1,4 +1,4 @@
-package com.hanny.cameraview;
+package com.hanny.cameraview.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.hanny.cameraview.R;
 
 /**
  * Created by Administrator on 2017/6/6.

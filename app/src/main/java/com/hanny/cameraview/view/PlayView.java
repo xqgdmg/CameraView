@@ -1,4 +1,4 @@
-package com.hanny.cameraview;
+package com.hanny.cameraview.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

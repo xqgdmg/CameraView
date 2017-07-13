@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.hanny.cameraview.utils.FileUtils;
+import com.hanny.cameraview.view.PlayView;
+
 
 public class VideoPlayActivity extends AppCompatActivity {
 

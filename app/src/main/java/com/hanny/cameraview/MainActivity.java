@@ -21,6 +21,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import com.hanny.cameraview.utils.FileUtils;
+import com.hanny.cameraview.utils.Util;
+import com.hanny.cameraview.view.ImagePreview;
+import com.hanny.cameraview.view.RingView;
+
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {

@@ -14,7 +14,7 @@
         android:background="@android:color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_height="150dp">
-        <com.hanny.cameraview.RingView
+        <com.hanny.cameraview.view.RingView
             android:id="@+id/recordView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

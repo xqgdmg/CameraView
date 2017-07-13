@@ -1,4 +1,4 @@
-package com.hanny.cameraview;
+package com.hanny.cameraview.utils;
 
 import android.os.Environment;
 
