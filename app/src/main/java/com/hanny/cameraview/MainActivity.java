@@ -20,7 +20,6 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
-
 import com.hanny.cameraview.utils.FileUtils;
 import com.hanny.cameraview.utils.Util;
 import com.hanny.cameraview.view.ImagePreview;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private static final int REQUEST_PRERECORD = 0x101;
     private static final int REQUEST_RECORD_VIDEO = 0x102;
     private static final int REQUEST_PREVIEW_PHOTO = 0x103;
-    private SurfaceView cameraShowView;
+    private SurfaceView surfaceView;
     private RingView recordView;
     boolean flagRecord = false;//是否正在录像
     int cameraType = 0;
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     private void initView() {
         //录制界面
-        cameraShowView = (SurfaceView) findViewById(R.id.camera_show_view);
+        surfaceView = (SurfaceView) findViewById(R.id.camera_show_view);
         //相机切换
         //长按录制按钮
         recordView = (RingView) findViewById(R.id.recordView);
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             public void startRecord() {
                 if (!flagRecord) {
                     if (prepareRecord()) {
-                        Toast.makeText(MainActivity.this,"prepareRecord",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"录制视频准备就绪",Toast.LENGTH_SHORT).show();
                     } else {
                         endRecord();
                     }
@@ -190,6 +189,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // 结束录制后马上跳到预览的页面
         Intent intent = new Intent(this, VideoPlayActivity.class);
         intent.putExtra(VideoPlayActivity.DATA, videoFile.getAbsolutePath());
         startActivityForResult(intent, REQUEST_RECORD_VIDEO);
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     /**
      * 录制准备工作
      *
-     * @return
+     * return true 表示初始化完成，没有问题
      */
     private boolean prepareRecord() {
         //初始化相机
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         try {
             mediaRecorder.setCamera(camera);
             // 这两项需要放在setOutputFormat之前
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);// 手机麦克风
             mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
             // Set output file format，输出格式
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -379,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private void initData() {
-        surfaceHolder = cameraShowView.getHolder();
+        surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         // setType必须设置，要不出错.
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -391,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private void doStartSize() {
         int screenWidth = Util.getScreenWidth(this);
         int screenHeight = Util.getScreenHeight(this);
-        Util.setViewSize(cameraShowView, screenWidth * SIZE_1 / SIZE_2, screenHeight);
+        Util.setViewSize(surfaceView, screenWidth * SIZE_1 / SIZE_2, screenHeight);
     }
 
     private Handler handler = new Handler() {
@@ -470,6 +471,9 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         return 0;
     }
 
+    /**
+     * 与 resultCode 无关
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

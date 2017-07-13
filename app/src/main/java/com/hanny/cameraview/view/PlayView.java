@@ -4,7 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.VideoView;
 
-
+/**
+ * 录制完成后播放视频
+ */
 public class PlayView extends VideoView {
 
     private int sizeW = 0;
