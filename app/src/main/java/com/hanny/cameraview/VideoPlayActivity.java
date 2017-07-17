@@ -13,7 +13,9 @@ import android.widget.RelativeLayout;
 import com.hanny.cameraview.utils.FileUtils;
 import com.hanny.cameraview.view.PlayView;
 
-
+/**
+ * 录制完成后播放视频
+ */
 public class VideoPlayActivity extends AppCompatActivity {
 
     public final static String DATA = "URL";
