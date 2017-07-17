@@ -166,8 +166,7 @@ public class Util {
             matrix.postScale(-1, 1);
         }
         // 创建新的图片
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         return resizedBitmap;
     }
     public static File saveImageToGallery(Context context, Bitmap bmp) {
@@ -193,15 +192,14 @@ public class Util {
 
         // 其次把文件插入到系统图库
         try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(),
-                    file.getAbsolutePath(), fileName, null);
-            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
+            MediaStore.Images.Media.insertImage(context.getContentResolver(),file.getAbsolutePath(), fileName, null);
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));// 最后通知图库更新
             return file;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
         }
-        // 最后通知图库更新
+
     }
 
     /**

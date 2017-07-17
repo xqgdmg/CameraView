@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         try {
             camera = Camera.open(id);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return camera;
     }
@@ -436,7 +436,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, REQUEST_PRERECORD);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO}, REQUEST_PRERECORD);
         }
     }
 
@@ -444,7 +445,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_PRERECORD) {
-            if (grantResults.length == 3 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length == 3 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
             } else {
                 Toast.makeText(MainActivity.this, getString(R.string.premisson_refuse), Toast.LENGTH_SHORT).show();
                 finish();
@@ -456,8 +458,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
      * 获取旋转角度
      */
     private int getDisplayRotation(Activity activity) {
-        int rotation = activity.getWindowManager().getDefaultDisplay()
-                .getRotation();
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         switch (rotation) {
             case Surface.ROTATION_0:
                 return 0;
@@ -479,7 +480,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_PREVIEW_PHOTO) {
             recordView.setTakePhoto(false);
-        } else if (requestCode == REQUEST_RECORD_VIDEO) {
         }
     }
 }
